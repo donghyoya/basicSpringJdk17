@@ -19,11 +19,11 @@ public class PlayerService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Player player = playerRepository.findByUsername(username)
+        Player player = playerRepository.findByUserid(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
 
         return User.builder()
-                .username(player.getUsername())
+                .username(player.getUserid())
                 .password(player.getPassword())
                 .authorities("ROLE_USER") // 권한 설정
                 .build();

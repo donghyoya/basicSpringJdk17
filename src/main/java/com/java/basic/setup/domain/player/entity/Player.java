@@ -24,7 +24,7 @@ public class Player {
     private Long id;
 
     // 플레이어 로그인 ID
-    private String username;
+    private String userid;
     // 플레이어 로그인 비밀번호
     private String password;
     private int age;
