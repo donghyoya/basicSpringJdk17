@@ -14,16 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/players")
-public class PlayerController {
+@RequiredArgsConstructor
+public class PlayerApi {
 
     private final PlayerService playerService;
     private final PasswordEncoder passwordEncoder;
-
-    @Autowired
-    public PlayerController(PlayerService playerService, PasswordEncoder passwordEncoder) {
-        this.playerService = playerService;
-        this.passwordEncoder = passwordEncoder;
-    }
 
     // 회원가입 API
     @PostMapping("/signup")
