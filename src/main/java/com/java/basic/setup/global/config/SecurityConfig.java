@@ -1,5 +1,6 @@
 package com.java.basic.setup.global.config;
 
+import com.java.basic.setup.domain.player.service.CustomUserDetailService;
 import com.java.basic.setup.domain.player.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -20,8 +21,12 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableWebSecurity
 public class SecurityConfig{
 
+    private final CustomUserDetailService customUserDetailService;
+
     @Autowired
-    private PlayerService playerService;
+    public SecurityConfig(CustomUserDetailService customUserDetailService){
+        this.customUserDetailService = customUserDetailService;
+    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {

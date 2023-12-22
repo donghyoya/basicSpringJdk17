@@ -12,22 +12,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class PlayerService implements UserDetailsService {
+public class PlayerService {
 
     private final PlayerRepository playerRepository;
     private final PasswordEncoder passwordEncoder;
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Player player = playerRepository.findByUserid(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
-
-        return User.builder()
-                .username(player.getUserid())
-                .password(player.getPassword())
-                .authorities("ROLE_USER") // 권한 설정
-                .build();
-    }
 
     public Player savePlayer(Player player){
         player.setPassword(passwordEncoder.encode(player.getPassword()));
