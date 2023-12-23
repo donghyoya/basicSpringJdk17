@@ -27,9 +27,9 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("theCreditable_CMS")
+                .title("basic setting")
                 .version("0.0.1")
-                .description("Hi \n contextPath = dev.gogoapy.kr:9400/api/theCreditable \n \n "
+                .description("Hi \n contextPath = dev.basic.kr:8080/api/basic \n \n "
                 )
                 .build();
     }
