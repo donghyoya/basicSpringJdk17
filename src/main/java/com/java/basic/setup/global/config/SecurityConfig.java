@@ -51,10 +51,10 @@ public class SecurityConfig{
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
                 .requestMatchers("/users/login", "/users/register").permitAll()
                 .anyRequest().hasAnyRole("USER")
-                .and()
+                .and()d
                 .httpBasic(httpBasic -> httpBasic.disable())//withDefaults()
                 .formLogin(form -> form
-                        .loginPage("/login")
+                        .loginPage("/api/basic/players/login")//로그인 페이지
                         .permitAll())
                 .csrf(csrf -> csrf.disable())//Customizer.withDefaults()
                 .logout((logout) -> logout.logoutUrl("/logout"))
