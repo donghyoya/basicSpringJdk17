@@ -1,13 +1,11 @@
 server:
   port: 8080
   servlet:
-    context-path: /api/basic
+    # context-path: /api/basic
     encoding:
       charset: UTF-8
       enabled:
         force: true
-
-
 
 spring:
   datasource:
@@ -20,7 +18,17 @@ spring:
     generate-ddl: true
     show-sql: true
     hibernate:
+      #none, update, create
       ddl-auto: update
+
+  spring-doc:
+    api-docs:
+      groups:
+        enabled: true
+    swagger-ui:
+      path: /swagger-ui.html
+      displayRequestDuration: true
+      groups-order: DESC
 
   redis:
     host: localhost
