@@ -56,7 +56,7 @@ public class SecurityConfig{
                 .and()
                 .httpBasic(httpBasic -> httpBasic.disable())//withDefaults()
                 .formLogin(form -> form
-                        .loginPage("/players/login")//로그인 페이지
+//                        .loginPage("/players/login")//로그인 페이지
                         .permitAll())
                 .csrf(csrf -> csrf.disable())//Customizer.withDefaults()
                 .logout((logout) -> logout.logoutUrl("/logout"))

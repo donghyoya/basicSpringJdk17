@@ -2,6 +2,8 @@ package com.java.basic.setup.domain.player.service;
 
 import com.java.basic.setup.domain.player.entity.Player;
 import com.java.basic.setup.domain.player.repository.PlayerRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,6 +21,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class CustomUserDetailService implements UserDetailsService {
 
+    Logger logger = LoggerFactory.getLogger(CustomUserDetailService.class);
+
     private final PlayerRepository playerRepository;
 
     @Autowired
@@ -28,6 +32,7 @@ public class CustomUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        logger.info("THIS IS CustomUserDetailService");
         Player player = playerRepository.findByUserid(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
 
