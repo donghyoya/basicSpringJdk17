@@ -50,7 +50,8 @@ public class SecurityConfig{
                 .authorizeRequests()
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
                 .requestMatchers(
-                        "/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**").permitAll()
+                        "/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**",
+                        "/swagger-ui.html").permitAll()
                 .anyRequest().hasAnyRole("USER")
                 .and()
                 .httpBasic(httpBasic -> httpBasic.disable())//withDefaults()
