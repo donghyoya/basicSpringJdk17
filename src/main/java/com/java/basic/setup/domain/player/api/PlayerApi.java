@@ -37,7 +37,7 @@ public class PlayerApi {
 
     // 로그인 API - Spring Security가 처리
     @PostMapping("/login")
-    public Boolean login(@RequestBody LoginDto login, HttpSer-m vletRequest httpServletRequest) {
+    public Boolean login(@RequestBody LoginDto login, HttpServletRequest httpServletRequest) {
         logger.info("THIS IS LOGIN API");
         return playerService.login(login, httpServletRequest);
 //        return ResponseEntity.ok("Login successful");

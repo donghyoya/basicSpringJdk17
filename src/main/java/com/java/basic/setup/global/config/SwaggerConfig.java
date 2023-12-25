@@ -24,7 +24,7 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
                 .select()
                 // apis()
                 // API문서에 출력할 패키지 경로를 지정. (String)
-                .apis(RequestHandlerSelectors.basePackage("app.server.api"))
+                .apis(RequestHandlerSelectors.basePackage("com.java.basic.setup.domain.player.api"))
                 // paths()
                 // API문서에 출력할 URL 경로 지정. (String)
                 .paths(PathSelectors.ant("/api/**"))
