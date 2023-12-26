@@ -30,40 +30,7 @@ public class SecurityConfig{
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        /**
-         * 5.6 이하버전 작성
-        http
-                .authorizeRequests()
-                .antMatchers("/public/**").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .loginPage("/login").permitAll()
-                .and()
-                .logout().permitAll()
-                .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
-        **/
 
-        http
-                .authorizeRequests()
-                .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-                .requestMatchers(
-                        "/swagger-ui/**",
-                        "/swagger-ui.html").permitAll()
-                .anyRequest().hasAnyRole("USER")
-                .and()
-                .httpBasic(httpBasic -> httpBasic.disable())//withDefaults()
-                .formLogin(
-                        (login) -> login.loginPage("/login")
-                )
-                .csrf(csrf -> csrf.disable())//Customizer.withDefaults()
-                .logout((logout) ->
-                        logout.logoutUrl("/logout")
-                )
-                .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         return http.build();
     }
 

@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-//@RequestMapping("/players")
 @RequiredArgsConstructor
 public class PlayerApi {
 
