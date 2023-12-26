@@ -46,24 +46,24 @@ public class SecurityConfig{
                 .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
         **/
 
-//        http
-//                .authorizeRequests()
-//                .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-//                .requestMatchers(
-//                        "/swagger-ui/**",
-//                        "/swagger-ui.html").permitAll()
-//                .anyRequest().hasAnyRole("USER")
-//                .and()
-//                .httpBasic(httpBasic -> httpBasic.disable())//withDefaults()
-//                .formLogin(
-//                        (login) -> login.loginPage("/login")
-//                )
-//                .csrf(csrf -> csrf.disable())//Customizer.withDefaults()
-//                .logout((logout) ->
-//                        logout.logoutUrl("/logout")
-//                )
-//                .sessionManagement(session -> session
-//                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+        http
+                .authorizeRequests()
+                .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
+                .requestMatchers(
+                        "/swagger-ui/**",
+                        "/swagger-ui.html").permitAll()
+                .anyRequest().hasAnyRole("USER")
+                .and()
+                .httpBasic(httpBasic -> httpBasic.disable())//withDefaults()
+                .formLogin(
+                        (login) -> login.loginPage("/login")
+                )
+                .csrf(csrf -> csrf.disable())//Customizer.withDefaults()
+                .logout((logout) ->
+                        logout.logoutUrl("/logout")
+                )
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         return http.build();
     }
 
