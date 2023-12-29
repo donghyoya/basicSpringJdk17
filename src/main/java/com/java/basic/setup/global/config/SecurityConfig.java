@@ -35,7 +35,7 @@ public class SecurityConfig{
                         csrf -> csrf
                                 .disable()
                 );
-        /**
+
         http
                 .authorizeRequests(auth -> auth
                         .requestMatchers("/api/basic/login", "/api/basic/logout").permitAll()
@@ -47,7 +47,7 @@ public class SecurityConfig{
                         .logoutUrl("/api/basic/logout"))
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED));
-        **/
+
         return http.build();
     }
 
