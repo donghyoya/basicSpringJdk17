@@ -30,8 +30,7 @@ public class PlayerApi {
     @PostMapping("/signup")
     public ResponseEntity<?> signUp(@RequestBody CreateUserDto createUserDto) {
         logger.info("THIS IS SIGNUP API");
-
-        playerService.savePlayer(createUserDto);
+        boolean result = playerService.savePlayer(createUserDto);
         return ResponseEntity.ok("Player registered successfully");
     }
 

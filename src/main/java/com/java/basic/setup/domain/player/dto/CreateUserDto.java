@@ -7,4 +7,5 @@ public class CreateUserDto {
 
     private String userid;
     private String password;
+    private int age;
 }

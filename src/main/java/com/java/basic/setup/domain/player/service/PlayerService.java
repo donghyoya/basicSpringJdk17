@@ -6,6 +6,8 @@ import com.java.basic.setup.domain.player.entity.Player;
 import com.java.basic.setup.domain.player.repository.PlayerRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -19,19 +21,29 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class PlayerService {
 
+    Logger logger = LoggerFactory.getLogger(PlayerService.class);
+
     private final PlayerRepository playerRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public Player savePlayer(CreateUserDto createUserDto){
+    public Boolean savePlayer(CreateUserDto createUserDto){
+
+        logger.info("create User: "+createUserDto.toString());
 
         //유저 생성(dto -> Player)
-        Player player = null;
-        player.setUserid(createUserDto.getUserid());
-        player.setPassword(createUserDto.getPassword());
+        Player player = new Player();
+        player.setCreatePlayer(createUserDto);
+//        player.setUserid(createUserDto.getUserid());
+//        player.setPassword(createUserDto.getPassword());
+//        player.setAge(createUserDto.getAge());
+
+        logger.info("Player info: "+player.toString());
 
         //비밀번호
         player.setPassword(passwordEncoder.encode(player.getPassword()));
-        return playerRepository.save(player);
+        playerRepository.save(player);
+
+        return true;
     }
 
     public boolean login(LoginDto login, HttpServletRequest httpServletRequest) {
