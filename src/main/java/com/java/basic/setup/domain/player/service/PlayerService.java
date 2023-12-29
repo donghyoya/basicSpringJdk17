@@ -1,5 +1,6 @@
 package com.java.basic.setup.domain.player.service;
 
+import com.java.basic.setup.domain.player.dto.CreateUserDto;
 import com.java.basic.setup.domain.player.dto.LoginDto;
 import com.java.basic.setup.domain.player.entity.Player;
 import com.java.basic.setup.domain.player.repository.PlayerRepository;
@@ -21,7 +22,14 @@ public class PlayerService {
     private final PlayerRepository playerRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public Player savePlayer(Player player){
+    public Player savePlayer(CreateUserDto createUserDto){
+
+        //유저 생성(dto -> Player)
+        Player player = null;
+        player.setUserid(createUserDto.getUserid());
+        player.setPassword(createUserDto.getPassword());
+
+        //비밀번호
         player.setPassword(passwordEncoder.encode(player.getPassword()));
         return playerRepository.save(player);
     }

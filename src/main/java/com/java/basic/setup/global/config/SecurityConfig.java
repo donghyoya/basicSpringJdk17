@@ -31,6 +31,19 @@ public class SecurityConfig{
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
+        /**
+        http
+                .authorizeRequests(auth -> auth
+                        .requestMatchers("/api/basic/login", "/api/basic/logout").permitAll()
+                        .requestMatchers("/api/basic/swagger-ui/**").permitAll()
+                        .anyRequest().authenticated())
+                .formLogin(form -> form
+                        .loginProcessingUrl("/api/basic/login"))
+                .logout(logout -> logout
+                        .logoutUrl("/api/basic/logout"))
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED));
+        **/
         return http.build();
     }
 

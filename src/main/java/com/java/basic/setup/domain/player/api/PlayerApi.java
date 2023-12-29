@@ -1,5 +1,6 @@
 package com.java.basic.setup.domain.player.api;
 
+import com.java.basic.setup.domain.player.dto.CreateUserDto;
 import com.java.basic.setup.domain.player.dto.LoginDto;
 import com.java.basic.setup.domain.player.entity.Player;
 import com.java.basic.setup.domain.player.service.PlayerService;
@@ -27,10 +28,10 @@ public class PlayerApi {
 
     // 회원가입 API
     @PostMapping("/signup")
-    public ResponseEntity<?> signUp(@RequestBody Player player) {
+    public ResponseEntity<?> signUp(@RequestBody CreateUserDto createUserDto) {
         logger.info("THIS IS SIGNUP API");
-        player.setPassword(passwordEncoder.encode(player.getPassword()));
-        playerService.savePlayer(player);
+
+        playerService.savePlayer(createUserDto);
         return ResponseEntity.ok("Player registered successfully");
     }
 
