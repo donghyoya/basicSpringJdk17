@@ -6,9 +6,12 @@ import com.java.basic.setup.domain.player.entity.Player;
 import com.java.basic.setup.domain.player.repository.PlayerRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -29,6 +32,7 @@ public class PlayerService {
 
     private final PlayerRepository playerRepository;
     private final PasswordEncoder passwordEncoder;
+    private final AuthenticationManager authenticationManager;
 
     public Boolean savePlayer(CreateUserDto createUserDto){
 
@@ -50,7 +54,15 @@ public class PlayerService {
         return true;
     }
 
-    public boolean login(LoginDto login, HttpServletRequest httpServletRequest) {
+    public boolean login(LoginDto login, HttpServletRequest request) {
+
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(login.getUserid(), login.getPassword());
+
+        Authentication authenticate = authenticationManager.authenticate(token);
+        SecurityContextHolder.getContext().setAuthentication(authenticate);
+
+        HttpSession session = request.getSession(true);
+        session.setAttribute("SPRING_SECURITY_CONTEXT",SecurityContextHolder.getContext());
 
         String userid = login.getUserid();
         Player player = null;
