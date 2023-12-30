@@ -33,3 +33,12 @@ spring:
   redis:
     host: localhost
     port: 6379
+
+  session:
+    store-type: redis
+    timeout: 60s
+    redis:
+      flush-mode: on-save
+      #사용자 정의 redis 이름
+      namespace: basic:session
+

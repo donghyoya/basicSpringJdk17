@@ -5,6 +5,7 @@ import com.java.basic.setup.domain.player.dto.LoginDto;
 import com.java.basic.setup.domain.player.entity.Player;
 import com.java.basic.setup.domain.player.service.PlayerService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,8 +45,11 @@ public class PlayerApi {
 
     // 로그아웃 API - Spring Security가 처리
     @PostMapping("/logout")
-    public ResponseEntity<?> logout() {
+    public ResponseEntity<?> logout(HttpServletRequest request,
+                                    HttpServletResponse response) {
         logger.info("THIS IS LOGOUT API");
+        Boolean logout = playerService.logout(request, response);
+        System.out.println("logout = " + logout);
         return ResponseEntity.ok("Logout successful");
     }
 }
