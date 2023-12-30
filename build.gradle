@@ -23,6 +23,8 @@ repositories {
 	mavenCentral()
 }
 
+def queryDslVersion = '5.0.0'
+
 dependencies {
 	// 웹 의존성
     implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -49,10 +51,20 @@ dependencies {
 		}
 	}
 
-	//querydsl
-	implementation "com.querydsl:querydsl-jpa:5.0.0"
-	implementation "com.querydsl:querydsl-apt:5.0.0"
-	implementation "com.querydsl:querydsl-core:5.0.0"
+	//querydsl 설정 추가
+	//querydsl dependencies 추가(스프링부트 3.0 이상)
+	// 필수
+	implementation "com.querydsl:querydsl-jpa:${queryDslVersion}:jakarta"
+	implementation "com.querydsl:querydsl-core:${queryDslVersion}"
+
+	// QueryDsl 쿼리 타입 생성 (QClass 생성 시 @Entity 탐색)
+	annotationProcessor "com.querydsl:querydsl-apt:${queryDslVersion}:jakarta"
+
+	// java.lang.NoClassDefFoundError:javax/persistence/Entity 에러 방지
+	annotationProcessor "jakarta.persistence:jakarta.persistence-api"
+	annotationProcessor "jakarta.annotation:jakarta.annotation-api"
+
+
 
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
@@ -66,18 +78,21 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 
+//// Querydsl 설정부
+// QueryDsl 디렉토리 경로
 def querydslDir = "$buildDir/generated/querydsl"
 
-querydsl {
-	jpa = true
-	querydslSourcesDir = querydslDir
-}
+// 경로 추가 >> QueryDsl 소스 코드 컴파일 시 빌드
 sourceSets {
-	main.java.srcDir querydslDir
+	main.java.srcDirs += [ querydslDir ]
 }
-configurations {
-	querydsl.extendsFrom compileClasspath
+
+// 컴파일 설정(AnnotationProcessor가 생성하는 소스코드를 해당 경로로 설정)
+tasks.withType(JavaCompile) {
+	options.annotationProcessorGeneratedSourcesDirectory = file(querydslDir)
 }
-compileQuerydsl {
-	options.annotationProcessorPath = configurations.querydsl
+
+// clean실행 시 마지막 작업으로 디렉토리(QClass) 삭제 >> 충돌 방지
+clean.doLast {
+	file(querydslDir).deleteDir()
 }
