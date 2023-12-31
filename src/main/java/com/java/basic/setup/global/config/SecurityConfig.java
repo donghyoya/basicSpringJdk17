@@ -32,6 +32,23 @@ public class SecurityConfig{
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
+        /**
+         * 5.6 이하버전 작성
+         http
+         .authorizeRequests()
+         .antMatchers("/public/**").permitAll()
+         .anyRequest().authenticated()
+         .and()
+         .formLogin()
+         .loginPage("/login").permitAll()
+         .and()
+         .logout().permitAll()
+         .and()
+         .sessionManagement()
+         .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
+         **/
+
         // csrf 비활성화
         http
                 .csrf(

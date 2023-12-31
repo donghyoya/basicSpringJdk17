@@ -21,7 +21,7 @@ spring:
     show-sql: true
     hibernate:
       #none, update, create
-      ddl-auto: create
+      ddl-auto: update
 
   spring-doc:
     api-docs:
