@@ -8,5 +8,5 @@ import java.util.Optional;
 
 public interface FileRepository extends JpaRepository<FileMetadata, Long> {
 
-    List<FileMetadata> findByFileName(String fileName);
+
 }

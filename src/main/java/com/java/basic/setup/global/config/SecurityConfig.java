@@ -38,9 +38,13 @@ public class SecurityConfig{
                         csrf -> csrf
                                 .disable()
                 );
-
+        /*
+        authroize (5.7이전버전)
+        authorizeRequest (6.2 이전버전)
+        authorizeHttpRequests (6.2.1 이상버전)
+         */
         http
-                .authorizeRequests(auth -> auth
+                .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/basic/login", "/api/basic/logout").permitAll()
                         .requestMatchers("/api/basic/swagger-ui/**").permitAll()
                         .anyRequest().authenticated())
