@@ -44,3 +44,11 @@ spring:
       #사용자 정의 redis 이름
       namespace: basic:session
 
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+      location: /sub
+      #file-size-threshold: 2KB
+
+

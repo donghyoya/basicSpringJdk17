@@ -1,9 +1,12 @@
 package com.java.basic.setup.domain.file.api;
 
+import com.java.basic.setup.domain.file.dto.FileVo;
 import com.java.basic.setup.domain.file.entity.FileMetadata;
 import com.java.basic.setup.domain.file.service.FileService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,8 +22,8 @@ public class FileApi {
     @Autowired
     private FileService fileService;
 
-    @PostMapping("/upload")
-    public ResponseEntity<FileMetadata> uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
+    @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<FileMetadata> uploadFile(@ModelAttribute("file") @Valid FileVo file) throws IOException {
         FileMetadata fileMetadata = fileService.storeFile(file);
         return ResponseEntity.ok(fileMetadata);
     }
