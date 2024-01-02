@@ -28,7 +28,7 @@ spring:
       groups:
         enabled: true
     swagger-ui:
-      path: /swagger-ui.html
+      path: /swagger-ui/index.html
       displayRequestDuration: true
       groups-order: DESC
 
