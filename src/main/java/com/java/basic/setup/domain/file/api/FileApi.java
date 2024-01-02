@@ -45,6 +45,10 @@ public class FileApi {
     public ResponseEntity<Resource> downloadFileByPath(@RequestParam("path") String path, HttpServletRequest request)
             throws IOException {
 
+        /**
+         * 파일 다운받을때 예시:
+         * C:\\uploads\\test.PNG -> 윈도우 \ 을 \\으로 두번 해야한다
+         */
         // 파일 로딩 로직
         Resource resource = fileService.downloadFilePath(path);
         String contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
