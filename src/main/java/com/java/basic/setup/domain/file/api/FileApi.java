@@ -42,19 +42,12 @@ public class FileApi {
     }
 
     @GetMapping("/download/path")
-    public ResponseEntity<Resource> downloadFileByPath(@RequestParam("path") String path,
-                                                       HttpServletRequest request,
-                                                       HttpHeaders httpHeaders)
+    public ResponseEntity<Resource> downloadFileByPath(@RequestParam("path") String path, HttpServletRequest request)
             throws IOException {
 
+        // 파일 로딩 로직
         Resource resource = fileService.downloadFilePath(path);
-        String contentType = null;
-        try {
-            contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
-        } catch (IOException ex) {
-            // logger.info("Could not determine file type.");
-        }
-
+        String contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
         if (contentType == null) {
             contentType = "application/octet-stream";
         }
@@ -64,6 +57,7 @@ public class FileApi {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
                 .body(resource);
     }
+
     @GetMapping("/between")
     public ResponseEntity<List<FileMetadata>> getFilesBetweenDates(
             @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
