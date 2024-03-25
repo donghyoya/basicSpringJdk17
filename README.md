@@ -26,4 +26,4 @@ SpringBootBasicSetup은 Spring Boot를 사용하여 개발된 기본적인 프�
 1. 프로젝트 클론하기
 
 ```bash
-git clone https://github.com/yourusername/springbootbasicsetup.git
+git clone [https://github.com/donghyoya/basicSpringJdk17.git]
